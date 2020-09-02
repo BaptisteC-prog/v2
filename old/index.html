@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Open Classroom - Projet 6</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+	<link href="https://fonts.googleapis.com/css2?family=ABeeZee&display=swap" rel="stylesheet"> 
+  </head>
+  <body>
+	<div id="win">
+	</div>
+  	<div id="overlay">
+	</div>
+	<div id="grid">
+	</div>
+	<div id="secret">
+		<input type="text" id="p1x"><input type="text" id="p1y">
+		<input type="text" id="p2x"><input type="text" id="p2y">
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!--- <script src="jquery.js"></script>--->
+  
+  <script>
+	 //fonctions utiles 
+	  //entier avec probabilité	
+	 function rint(n) {
+		wat=n;
+		num=n-parseInt(n);
+	if (Math.random()<num) { wat++; }
+		return parseInt(wat); 
+	  }
+		
+		function int(n) {
+		return Math.floor(n);
+	}
+		
+	function rnd(p=1){
+		return	Math.pow(Math.random(),p);
+	}
+	let sizeX=10;
+	let sizeY=10;
+
+	//important pour le styleSheets
+	let shiftX=0;
+	let shiftY=0;
+	let scale=0.9;
+
+//$("#joueurs").css("left",15*100);
+	</script>
+  
+   <script src="grid.js"></script> 
+   <script src="player.js"></script> 
+   <div id="space"><div>
+  
+  
+  <section id="joueurs">
+	 <div class="panel-joueur1 active-joueur1">
+
+		<input type="text" id="namePlayer1" value="Le bleu">
+		<br><br>
+		<table>
+			<tr>
+			<td><img src="img/joueur10.png"></td>
+			<td><p>&nbsp;<span id="hp1"></span>HP</p></td>
+			</tr>
+		</table>
+		<p>Arme : <span id="weapon1">...</span> </p>
+
+		<input id= "attP1" type="button" value="J'attaque !">
+		<input id= "defP1" type="button" value="Je defends !">
+		<p id="modeP1"></p>
+		<!---<input id="endP1" type="button" value="fin du tour"></input>--->
+
+	</div>
+	 
+	<div class="panel-joueur2  active-joueur2">
+
+		<input type="text" id="namePlayer2" value="Le rouge">
+		<br><br>
+		<table>
+			<tr>
+			<td><img src="img/joueur20.png"></td>
+			<td><p>&nbsp;<span id="hp2"></span>HP</p></td>
+			</tr>
+		</table>
+		<p>Arme : <span id="weapon2">...</span> </p>
+		
+		<input id= "attP2" type="button" value="J'attaque !">
+		<input id= "defP2" type="button" value="Je defends !">
+		<p id="modeP2"></p>
+	 </div>
+
+  </section>
+  
+  <section id="action">
+  	<ul id="liste">
+	</ul>
+  </section>  
+  
+ </body>
+</html>
