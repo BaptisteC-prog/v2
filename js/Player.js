@@ -16,6 +16,7 @@ export default class Player {
 		this.myTurn = true;
 		this.myAction=""; //isAttacking
 		this.canPlay=true;
+		this.CSSName;
 		
 	}
 
@@ -118,9 +119,9 @@ export default class Player {
 			let origin=playboard.pickCell(player.posX,player.posY);
 			if ( !cell.checkWeapon()){
 				
-				if (player === player1 && player.canPlay){
+				if ( player.canPlay){
 					//playboard.remObject(player1.posX,player1.posY);
-					playboard.remPlayer(player1.posX,player1.posY);
+					playboard.remPlayer(player.posX,player.posY);
 					if ( !origin.checkWeapon()) { 
 						origin.content+=" void";
 						//playboard.setObject(player.posX,player.posY,"void");
@@ -130,27 +131,10 @@ export default class Player {
 					 }
 					else 
 					{
-						$( `.cell[coord='${player.posX}:${player.posY}']` ).removeClass(player1.weapon.CSSName);
+						$( `.cell[coord='${player.posX}:${player.posY}']` ).removeClass(player.weapon.CSSName);
 						
 					}
-					playboard.setObject(x,y,"player1");
-					player.moveUpdate(x,y);
-				}
-
-				if (player === player2 && player.canPlay){
-					//playboard.remObject(player2.posX,player2.posY);
-					playboard.remPlayer(player2.posX,player2.posY);
-					if ( !origin.checkWeapon()) { 
-						origin.content+=" void";
-						//playboard.setObject(player.posX,player.posY,"void");
-						$( `.cell[coord='${player.posX}:${player.posY}']` ).addClass("void");
-						playboard.synchro(player.posX,player.posY);
-					 }
-					else
-					{
-						$( `.cell[coord='${player.posX}:${player.posY}']` ).removeClass(player2.weapon.CSSName);
-					}
-					playboard.setObject(x,y,"player2");
+					playboard.setObject(x,y,player.CSSName);
 					player.moveUpdate(x,y);
 				}
 			}
@@ -237,6 +221,8 @@ function endTurn(who){
 
 export let player1=new Player("bleu",0,0);
 export let player2=new Player("rouge",0,0);
+player1.CSSName="player1";
+player2.CSSName="player2";
 player2.myTurn=false;
 player2.canPlay=false;
 //Blue.weapon=weapon0;
