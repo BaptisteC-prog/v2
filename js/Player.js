@@ -16,7 +16,7 @@ export default class Player {
 		this.myTurn = true;
 		this.myAction=""; //isAttacking
 		this.canPlay=true;
-		this.CSSName;
+		this.CSSName="";
 		
 	}
 
@@ -147,21 +147,12 @@ export default class Player {
 
 			player.prevWeapon = player.weapon;
 			//alert(player.weapon.name);
-			if (player === player1 && player.canPlay) {
+			if ( player.canPlay) {
 				//playboard.remObject(player1.posX,player1.posY);
-				playboard.remPlayer(player1.posX, player1.posY);
+				playboard.remPlayer(player.posX, player.posY);
 				playboard.synchro(player.posX, player.posY);
-				playboard.remObject(x, y, player1.weapon.CSSName);
-				playboard.setObject(x, y, "player1");
-				player.equip(cell.getWeapon());
-				player.moveUpdate(x, y);
-			}
-			if (player === player2 && player.canPlay) {
-				playboard.remPlayer(player2.posX, player2.posY);
-				playboard.synchro(player.posX, player.posY);
-				//playboard.remObject(player2.posX,player2.posY);
-				playboard.remObject(x, y, player2.weapon.CSSName);
-				playboard.setObject(x, y, "player2");
+				playboard.remObject(x, y, player.weapon.CSSName);
+				playboard.setObject(x, y, player.CSSName);
 				player.equip(cell.getWeapon());
 				player.moveUpdate(x, y);
 			}
