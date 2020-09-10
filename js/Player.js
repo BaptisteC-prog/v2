@@ -4,6 +4,7 @@ import Cell from "./Cell.js";
 import Grid from "./Grid.js";
 import Weapon from "./Weapon.js"; 
 import weaponsList from "./Weapon.js"; 
+import { rint,int,rnd } from "./configUtils.js";
 
 export default class Player {
     constructor(name, posX,posY) {
@@ -112,7 +113,7 @@ export default class Player {
 		$('#overlay').html("");
 		endTurn(this);
 	}
-
+//
 	move(x,y,player){
 		if (player.myTurn) {
 			let cell=playboard.pickCell(x,y);
@@ -187,10 +188,6 @@ export default class Player {
 				break;
 		}
 	}
-}
-
-function add(a,b){
-	return int(a)+int(b);
 }
 
 function endTurn(who){

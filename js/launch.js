@@ -5,6 +5,7 @@ import Weapon from "./Weapon.js";  // les METHODES de weapon
 import Player from "./Player.js"; 
 import {player1,player2} from "./Player.js";
 import {weapon0,weapon1,weapon2,weapon3,weapon4} from "./Weapon.js"; //les OBJETS de weapon
+import { sizeX,sizeY,shiftX,shiftY,scale } from "./configUtils.js";
 
 $(document).ready(function () {
 	
@@ -48,8 +49,6 @@ $(document).ready(function () {
 	playboard.spawnPlayers();
 	playboard.spawnWeapons();
 
-	let test=playboard.pickCell(5,3);
-	playboard.setObject(5,3,weapon1.CSSName);
 	//console.log(test.getWeapon());
 
 
@@ -83,7 +82,7 @@ $(document).ready(function () {
 
 
 //bilan
-	if ( dmgchart == true ) {
+	if ( dmgchart === true ) {
 	console.log("0 :"+weapon0.minDmg+"-"+weapon0.maxDmg+ "   rnd:"+weapon0.randomTier);
 	console.log("1 :"+weapon1.minDmg+"-"+weapon1.maxDmg+ "   rnd:"+weapon1.randomTier);
 	console.log("2 :"+weapon2.minDmg+"-"+weapon2.maxDmg+ "   rnd:"+weapon2.randomTier);
