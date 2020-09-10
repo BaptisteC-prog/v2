@@ -3,21 +3,15 @@ import Grid from "./Grid.js";
 import {playboard} from "./Grid.js";
 import Weapon from "./Weapon.js";  // les METHODES de weapon
 import Player from "./Player.js"; 
-import {player1,player2} from "./Player.js";
+import {player1,player2,endTurn} from "./Player.js";
 import {weapon0,weapon1,weapon2,weapon3,weapon4} from "./Weapon.js"; //les OBJETS de weapon
-import { sizeX,sizeY,shiftX,shiftY,scale } from "./configUtils.js";
+import { sizeX,sizeY,shiftX,shiftY,scale,rint,rnd } from "./configUtils.js";
 
 $(document).ready(function () {
 	
 	let dmgchart=false;
-	function rnd(p=1){
-		return	Math.pow(Math.random(),p);
-	}
 
-
-	////TEST
-
-
+	$( ".panel-joueur2" ).toggleClass("active-joueur2");
 
 
 	function coordGet(coords){
@@ -35,6 +29,8 @@ $(document).ready(function () {
 	
 		player1.name=$("#namePlayer1").val();
 		player2.name=$("#namePlayer2").val();
+
+
 		
 	}
 
@@ -52,7 +48,9 @@ $(document).ready(function () {
 	//console.log(test.getWeapon());
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ //MOUVEMENTS
+
 	$('#grid').on('click','.player1', function(){
 		
 		if (player1.myTurn) {
@@ -80,8 +78,71 @@ $(document).ready(function () {
 		refresh();
 	});
 
+ /////////////////////////////////////////////////////////////////////////////////
+ // COMBAT
+ $('#overlay').on('click','.fight', function(){
 
-//bilan
+	player1.canPlay=true;
+	player2.canPlay=true;
+	
+	if (player1.myTurn && player1.canPlay && player1.isAttacking ) {
+		player1.canPlay=false;
+		let dmg=player1.weapon.weaponDMGOuput();
+		if (!player2.isAttacking) {dmg=rint(dmg/2); }
+		player2.HP-=dmg;
+		endTurn(player1);
+		refresh();
+		$('#overlay').html("");
+		return;
+	}
+
+	if (player2.myTurn && player2.canPlay && player2.isAttacking ) {
+		player2.canPlay=false;
+		let dmg=player2.weapon.weaponDMGOuput();
+		if (!player1.isAttacking) {dmg=rint(dmg/2); }
+		player1.HP-=dmg;
+		endTurn(player2);
+		refresh();
+		$('#overlay').html("");
+		return;
+	}
+
+ });
+
+ ///////////////////////////////////////////////////////////////////////////////
+ ///INTERACT
+ $('#attP1').on('click', function(){
+	player1.isAttacking=true;
+	$("#liste").append("<li class='item'>"+player1.name+" passe a l'attaque</li>") ;
+	refresh();
+});
+
+
+$('#defP1').on('click', function(){
+	player1.isAttacking=false;
+	endTurn(player1);
+	$("#liste").append("<li class='item'>"+player1.name+" choisit de se défendre</li>") ;
+	refresh();
+	return;
+});
+
+$('#attP2').on('click', function(){
+	player2.isAttacking=true;
+	$("#liste").append("<li class='item'>"+player2.name+" passe a l'attaque</li>") ;
+	refresh();
+});
+
+
+$('#defP2').on('click', function(){
+	player2.isAttacking=false;
+	endTurn(player2);
+	$("#liste").append("<li class='item'>"+player2.name+" choisit de se défendre</li>") ;
+	refresh();
+	return;
+});
+
+
+ //bilan
 	if ( dmgchart === true ) {
 	console.log("0 :"+weapon0.minDmg+"-"+weapon0.maxDmg+ "   rnd:"+weapon0.randomTier);
 	console.log("1 :"+weapon1.minDmg+"-"+weapon1.maxDmg+ "   rnd:"+weapon1.randomTier);
@@ -105,7 +166,7 @@ $(document).ready(function () {
 
 
 	//playboard.setObject(cellrandom.x,cellrandom.y,"test")
-/*
+ /*
 	let test=playboard.pickCell(5,3);
 	let test2=playboard.pickCell(8,4);
 

@@ -1,8 +1,8 @@
 //fonctions utiles 
 //entier avec probabilité	
 export function rint(n) {
-  wat=n;
-  num=n-parseInt(n);
+  let wat=n;
+  let num=n-parseInt(n);
 if (Math.random()<num) { wat++; }
   return parseInt(wat); 
 }

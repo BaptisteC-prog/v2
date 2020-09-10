@@ -1,3 +1,5 @@
+import { rint,int,rnd } from "./configUtils.js";
+
 export default class Weapon {
 	constructor(ID,name,minDmg,maxDmg,randomTier)
 	{
@@ -7,6 +9,10 @@ export default class Weapon {
 		this.maxDmg=maxDmg;
 		this.randomTier=randomTier;
 		this.CSSName="";
+	}
+
+	weaponDMGOuput(){
+		return rint(rnd(this.randomTier)*(this.maxDmg-this.minDmg)+this.minDmg);
 	}
 	
 }
