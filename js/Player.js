@@ -121,7 +121,7 @@ export default class Player {
 			if ( !cell.checkWeapon()){
 				
 				if ( player.canPlay){
-					//playboard.remObject(player1.posX,player1.posY);
+					$("#liste").append("<li class='item'>"+player.name+" se déplace</li>") ;
 					playboard.remPlayer(player.posX,player.posY);
 					if ( !origin.checkWeapon()) { 
 						origin.content+=" void";
@@ -155,6 +155,7 @@ export default class Player {
 				playboard.remObject(x, y, player.weapon.CSSName);
 				playboard.setObject(x, y, player.CSSName);
 				player.equip(cell.getWeapon());
+				$("#liste").append("<li class='item'>"+player.name+" a ramassé :"+player.weapon.name+"</li>") ;
 				player.moveUpdate(x, y);
 			}
 

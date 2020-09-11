@@ -19,6 +19,18 @@ $(document).ready(function () {
 		return cg;
 	}
 	
+	function Victory(who) {
+	
+		console.log("victory "+who.name);
+		$('#grid').css("display","none");
+		$('#joueurs').css("display","none");
+		$('#action').css("display","none");
+		$('#action').css("display","none");
+		$('#win').html("<h1>Félicitations ! "+who.name+ " a remporté la victoire !<br> avec "+who.HP+" HP restants</h1>" );
+	//ajouter un reload
+	
+	}
+
 	function refresh(){
 
 		$("#weapon1").html(player1.weapon.name);
@@ -30,9 +42,15 @@ $(document).ready(function () {
 		player1.name=$("#namePlayer1").val();
 		player2.name=$("#namePlayer2").val();
 
+		let numItems = $('.item').length;
+		if (numItems >10 ) { $(".item").eq(0).remove(); }
 
+		if ( player1.HP <= 0 ) { Victory(player2); }
+		if ( player2.HP <= 0 ) { Victory(player1); }
 		
 	}
+
+
 
 	refresh();
 	playboard.generate(sizeX,sizeY);
@@ -90,17 +108,28 @@ $(document).ready(function () {
 		let dmg=player1.weapon.weaponDMGOuput();
 		if (!player2.isAttacking) {dmg=rint(dmg/2); }
 		player2.HP-=dmg;
+		$("#liste").append("<li class='item'>"+player1.name+" attaque "+player2.name+" pour "+dmg+" degats!</li>") ;
 		endTurn(player1);
 		refresh();
 		$('#overlay').html("");
 		return;
 	}
+	
+	if (player1.myTurn && player1.canPlay && !player1.isAttacking ) {
+		$("#liste").append("<li class='item'>"+player.name+" doit choisir de passer en attaque !</li>") ;
+	}
 
+	if (player2.myTurn && player2.canPlay && !player2.isAttacking ) {
+		$("#liste").append("<li class='item'>"+player.name+" doit choisir de passer en attaque !</li>") ;
+	}
+
+	
 	if (player2.myTurn && player2.canPlay && player2.isAttacking ) {
 		player2.canPlay=false;
 		let dmg=player2.weapon.weaponDMGOuput();
 		if (!player1.isAttacking) {dmg=rint(dmg/2); }
 		player1.HP-=dmg;
+		$("#liste").append("<li class='item'>"+player2.name+" attaque "+player1.name+" pour "+dmg+" degats!</li>") ;
 		endTurn(player2);
 		refresh();
 		$('#overlay').html("");
@@ -114,6 +143,7 @@ $(document).ready(function () {
  $('#attP1').on('click', function(){
 	player1.isAttacking=true;
 	$("#liste").append("<li class='item'>"+player1.name+" passe a l'attaque</li>") ;
+	endTurn(player1);
 	refresh();
 });
 
@@ -129,6 +159,7 @@ $('#defP1').on('click', function(){
 $('#attP2').on('click', function(){
 	player2.isAttacking=true;
 	$("#liste").append("<li class='item'>"+player2.name+" passe a l'attaque</li>") ;
+	endTurn(player2);
 	refresh();
 });
 
