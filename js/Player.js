@@ -4,6 +4,7 @@ import Cell from "./Cell.js";
 import Grid from "./Grid.js";
 import Weapon from "./Weapon.js"; 
 import weaponsList from "./Weapon.js"; 
+import { rint,int,rnd } from "./configUtils.js";
 
 export default class Player {
     constructor(name, posX,posY) {
@@ -14,7 +15,7 @@ export default class Player {
 		this.posX = posX;
 		this.posY = posY;
 		this.myTurn = true;
-		this.myAction=""; //isAttacking
+		this.isAttacking=true; //isAttacking
 		this.canPlay=true;
 		this.CSSName="";
 		
@@ -112,7 +113,7 @@ export default class Player {
 		$('#overlay').html("");
 		endTurn(this);
 	}
-
+//
 	move(x,y,player){
 		if (player.myTurn) {
 			let cell=playboard.pickCell(x,y);
@@ -120,7 +121,7 @@ export default class Player {
 			if ( !cell.checkWeapon()){
 				
 				if ( player.canPlay){
-					//playboard.remObject(player1.posX,player1.posY);
+					$("#liste").append("<li class='item'>"+player.name+" se déplace</li>") ;
 					playboard.remPlayer(player.posX,player.posY);
 					if ( !origin.checkWeapon()) { 
 						origin.content+=" void";
@@ -154,6 +155,7 @@ export default class Player {
 				playboard.remObject(x, y, player.weapon.CSSName);
 				playboard.setObject(x, y, player.CSSName);
 				player.equip(cell.getWeapon());
+				$("#liste").append("<li class='item'>"+player.name+" a ramassé :"+player.weapon.name+"</li>") ;
 				player.moveUpdate(x, y);
 			}
 
@@ -189,23 +191,24 @@ export default class Player {
 	}
 }
 
-function add(a,b){
-	return int(a)+int(b);
-}
+export function endTurn(who){
 
-function endTurn(who){
 
 	if (who === player1) {
 		player1.myTurn=false;
 		player2.myTurn=true;
 		console.log("end of turn for player1");
 		player1.canPlay=false;
+		$( ".panel-joueur1" ).toggleClass("active-joueur1");
+		$( ".panel-joueur2" ).toggleClass("active-joueur2");
 	}
 	if (who === player2) {
 		player2.myTurn=false;
 		player1.myTurn=true;
 		console.log("end of turn for player2");
 		player2.canPlay=false;
+		$( ".panel-joueur1" ).toggleClass("active-joueur1");
+		$( ".panel-joueur2" ).toggleClass("active-joueur2");
 	}
 
 }

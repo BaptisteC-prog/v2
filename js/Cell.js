@@ -4,7 +4,7 @@ export default class Cell {
 		this.y=y;
 		this.content=content;
 	}
-
+//
 	checkFree() {
 		let str=this.content;
 		let test=false;

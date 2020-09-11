@@ -34,10 +34,6 @@
 		transform: scale(0.9);
 }
 
-#overlay{
-	/*transform: scale(1.0);*/
-}
-
 #space {
 	position:absolute;
 	margin-left:1200px;
