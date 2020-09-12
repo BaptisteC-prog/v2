@@ -197,7 +197,7 @@ export function endTurn(who){
 	if (who === player1) {
 		player1.myTurn=false;
 		player2.myTurn=true;
-		console.log("end of turn for player1");
+		//console.log("end of turn for player1");
 		player1.canPlay=false;
 		$( ".panel-joueur1" ).toggleClass("active-joueur1");
 		$( ".panel-joueur2" ).toggleClass("active-joueur2");
@@ -205,7 +205,7 @@ export function endTurn(who){
 	if (who === player2) {
 		player2.myTurn=false;
 		player1.myTurn=true;
-		console.log("end of turn for player2");
+		//console.log("end of turn for player2");
 		player2.canPlay=false;
 		$( ".panel-joueur1" ).toggleClass("active-joueur1");
 		$( ".panel-joueur2" ).toggleClass("active-joueur2");

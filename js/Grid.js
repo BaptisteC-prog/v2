@@ -96,21 +96,21 @@ export default class Grid {
 
 	getClasses(x,y){
 		let cell=this.cells[parseInt(x)][parseInt(y)];
-		console.log(`getClasses : ${x}:${y} >>> ${cell.content}`);
+		//console.log(`getClasses : ${x}:${y} >>> ${cell.content}`);
 		//console.log("getClasses : "+x+":"+y+" >>> "+cell.content);
 		return cell.content.split(' ');
 	}
 
 	setObject(x,y,what)
 	{
-		console.log(`SETOBJECT on ${x}:${y} with ${what}`);
+		//console.log(`SETOBJECT on ${x}:${y} with ${what}`);
 		//console.log("SETOBJECT on "+x+":"+y+" with "+what)
 		let cell=this.cells[parseInt(x)][parseInt(y)];
 		
 		while ( !cell.checkFree() ) 
 		{
 			cell=this.randomCell();
-			console.log(`cell occupied, trying with ${cell.x}:${cell.y} ` );
+			//console.log(`cell occupied, trying with ${cell.x}:${cell.y} ` );
 		}
 
 		//cell.content=cell.content.replace("void","");
@@ -121,7 +121,7 @@ export default class Grid {
 
 	remObject(x,y,what)
 	{
-		console.log(`REMOVE OBJECT on ${x}:${y}`);
+		//console.log(`REMOVE OBJECT on ${x}:${y}`);
 		let cell=this.cells[parseInt(x)][parseInt(y)];
 		//let str=cell.content
 		//str=str.replace(what,"");
@@ -131,7 +131,7 @@ export default class Grid {
 
 	remAll(x,y)
 	{
-		console.log(`REMOVE ALL on ${x}:${y}`);
+		//console.log(`REMOVE ALL on ${x}:${y}`);
 		let cell=this.cells[parseInt(x)][parseInt(y)];
 		cell.content="cell void";
 		$( `.cell[coord='${x}:${y}']` ).attr("class","cell void");
@@ -157,7 +157,7 @@ export default class Grid {
 
 	//la distance de manhattan est plus adaptée pour les plateaux de jeu
 	distanceMan(cellA,cellB){
-		console.log(`distance manhattan between : ${cellA.x}:${cellA.y} and ${cellB.x}:${cellB.y} `);
+		//console.log(`distance manhattan between : ${cellA.x}:${cellA.y} and ${cellB.x}:${cellB.y} `);
 		return Math.ceil(Math.abs(cellB.x-cellA.x)+Math.abs(cellB.y-cellA.y));
 		
 	}
@@ -201,22 +201,22 @@ export default class Grid {
 	}
 
 	spawnPlayers(){
-		console.log ("spawning players...");
+		//console.log ("spawning players...");
 		let p1= this.randomFreeCell();
 		let p2= this.randomFreeCell();
 		while ( !this.canEscape(p1.x,p1.y))  {
 			p1= this.randomFreeCell();
-			console.log ("trying another cell for p1");
+			//console.log ("trying another cell for p1");
 		}
-		console.log("#################################################player 1 set in "+p1.x+":"+p1.y);
+		//console.log("#################################################player 1 set in "+p1.x+":"+p1.y);
 
 
 		while ( !this.canEscape(p2.x,p2.y) || this.distanceMan(p1,p2) <= 3 )  {
 			
 			p2= this.randomFreeCell();
-			console.log ("trying another cell for p2");
+			//console.log ("trying another cell for p2");
 		}
-		console.log("#################################################player 2 set in "+p2.x+":"+p2.y);
+		//console.log("#################################################player 2 set in "+p2.x+":"+p2.y);
 		this.setObject(p1.x,p1.y,"player1");
 		this.setObject(p2.x,p2.y,"player2");
 
@@ -228,7 +228,7 @@ export default class Grid {
 	}
 
 	spawnWeapons(){
-		console.log ("spawning weapons...");
+		//console.log ("spawning weapons...");
 		for (let i=1;i<5;i++) {
 			let cell = this.randomFreeCell();
 			this.setObject(cell.x,cell.y,"weapon"+i);

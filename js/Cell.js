@@ -9,7 +9,7 @@ export default class Cell {
 		let str=this.content;
 		let test=false;
 		if (str.search("void")>-1) { test=true;}
-		console.log("is cell "+this.x+":"+this.y+" free ? "+test);
+		//console.log("is cell "+this.x+":"+this.y+" free ? "+test);
 		return test;
 	}
 
@@ -18,7 +18,7 @@ export default class Cell {
 		let test=false;
 		let reg=/player/g;
 		if (str.search(reg)>0) { test=true;}
-		console.log("is cell "+this.x+":"+this.y+" a player ? "+test);
+		//console.log("is cell "+this.x+":"+this.y+" a player ? "+test);
 		return test;
 	}
 
@@ -27,7 +27,7 @@ export default class Cell {
 		let test=false;
 		let reg=/weapon/g;
 		if (str.search(reg)>0) { test=true;}
-		console.log("is cell "+this.x+":"+this.y+" a weapon ? "+test);
+		//console.log("is cell "+this.x+":"+this.y+" a weapon ? "+test);
 		return test;
 	}
 

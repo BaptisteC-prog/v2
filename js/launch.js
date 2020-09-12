@@ -58,7 +58,7 @@ $(document).ready(function () {
 	let numWalls=Math.ceil((0.075+rnd()*0.075)*sizeX*sizeY);
 
 	playboard.generateWall(numWalls);
-	console.log("###END GENERATION###______________________________________________________________________________________________");
+	//console.log("###END GENERATION###______________________________________________________________________________________________");
 
 	playboard.spawnPlayers();
 	playboard.spawnWeapons();
@@ -181,40 +181,5 @@ $('#defP2').on('click', function(){
 	console.log("3 :"+weapon3.minDmg+"-"+weapon3.maxDmg+ "   rnd:"+weapon3.randomTier);
 	console.log("4 :"+weapon4.minDmg+"-"+weapon4.maxDmg+ "   rnd:"+weapon4.randomTier);
 	}
-	//player1.weapon=weapon4;
-	//console.log(player1.weapon.name);
-
-
-	//playboard.setObject(5,0,"mur");
-	//playboard.setObject(4,0,"mur");
-	//playboard.setObject(5,1,"mur");
-	//playboard.setObject(6,0,"mur");
-
-	//console.log(playboard.canEscape(5,0));
-
-	//let cellrandom=playboard.randomCell();
-
-
-
-	//playboard.setObject(cellrandom.x,cellrandom.y,"test")
- /*
-	let test=playboard.pickCell(5,3);
-	let test2=playboard.pickCell(8,4);
-
-	let aaa=playboard.distance_man(test,test2);
-
-	console.log(aaa);*/
-
-	//console.log (playboard.getClasses(test.x,test.y));
-
-	//playboard.setObject(5,3,"test")
-
-	//test.checkFree();
-
-	//test.content="cell mur";
 	
-	//console.log (playboard.getClasses(test.x,test.y));
-	
-	
-   //console.log
 });
