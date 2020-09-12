@@ -17,7 +17,7 @@ export default class Grid {
 	}
 
 	generate(sizeX,sizeY) {
-		console.log("Grid Generate "+sizeX+" : "+sizeY);
+		//console.log("Grid Generate "+sizeX+" : "+sizeY);
 		this.sizeX=sizeX;
 		this.sizeY=sizeY;
 		
@@ -64,7 +64,7 @@ export default class Grid {
 			 && x<sizeX
 			 && y<sizeY 
 			 && y>=0 ) {return this.cells[parseInt(x)][parseInt(y)];}
-			 else { console.log("No cell in "+x+":"+y); }
+			// else { console.log("No cell in "+x+":"+y); }
 	}
 
 	random(number) {
@@ -76,7 +76,7 @@ export default class Grid {
 		
 	   let x = this.random(sizeX);
 	   let y = this.random(sizeY);
-	   console.log(`RandomCell: ${x}:${y}`);
+	   //console.log(`RandomCell: ${x}:${y}`);
 	   return this.cells[parseInt(x)][parseInt(y)];
 	}
 
@@ -139,7 +139,7 @@ export default class Grid {
 
 	remPlayer(x,y)
 	{
-		console.log(`REMOVE PLAYER on ${x}:${y}`);
+		//console.log(`REMOVE PLAYER on ${x}:${y}`);
 		let cell=this.cells[parseInt(x)][parseInt(y)];
 		$( `.cell[coord='${x}:${y}']` ).removeClass("player1").removeClass("player2");
 		this.synchro(x,y);
@@ -195,7 +195,7 @@ export default class Grid {
 			escape=false;
 		}
 
-		console.log(`can escape from ${x}:${y} ? ${escape}`);
+		//console.log(`can escape from ${x}:${y} ? ${escape}`);
 
 		return escape;
 	}

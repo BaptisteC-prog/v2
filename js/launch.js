@@ -103,37 +103,37 @@ $(document).ready(function () {
 	player1.canPlay=true;
 	player2.canPlay=true;
 	
+	let Me;
+	let Him;
+
 	if (player1.myTurn && player1.canPlay && player1.isAttacking ) {
-		player1.canPlay=false;
-		let dmg=player1.weapon.weaponDMGOuput();
-		if (!player2.isAttacking) {dmg=rint(dmg/2); }
-		player2.HP-=dmg;
-		$("#liste").append("<li class='item'>"+player1.name+" attaque "+player2.name+" pour "+dmg+" degats!</li>") ;
-		endTurn(player1);
+		Me=player1;
+		Him=player2;
+	}
+
+	if (player2.myTurn && player2.canPlay && player2.isAttacking ) {
+		Me=player2;
+		Him=player1;
+	}
+
+	if (Me.myTurn && Me.canPlay && Me.isAttacking ) {
+		Me.canPlay=false;
+		let dmg=Me.weapon.weaponDMGOuput();
+		if (!Him.isAttacking) {dmg=rint(dmg/2); }
+		Him.HP-=dmg;
+		$("#liste").append("<li class='item'>"+Me.name+" attaque "+Him.name+" pour "+dmg+" degats!</li>") ;
+		endTurn(Me);
 		refresh();
 		$('#overlay').html("");
 		return;
 	}
-	
+
 	if (player1.myTurn && player1.canPlay && !player1.isAttacking ) {
 		$("#liste").append("<li class='item'>"+player.name+" doit choisir de passer en attaque !</li>") ;
 	}
 
 	if (player2.myTurn && player2.canPlay && !player2.isAttacking ) {
 		$("#liste").append("<li class='item'>"+player.name+" doit choisir de passer en attaque !</li>") ;
-	}
-
-	
-	if (player2.myTurn && player2.canPlay && player2.isAttacking ) {
-		player2.canPlay=false;
-		let dmg=player2.weapon.weaponDMGOuput();
-		if (!player1.isAttacking) {dmg=rint(dmg/2); }
-		player1.HP-=dmg;
-		$("#liste").append("<li class='item'>"+player2.name+" attaque "+player1.name+" pour "+dmg+" degats!</li>") ;
-		endTurn(player2);
-		refresh();
-		$('#overlay').html("");
-		return;
 	}
 
  });
