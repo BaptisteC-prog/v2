@@ -3,45 +3,42 @@ export default class Cell {
 		this.x=x;
 		this.y=y;
 		this.content=content;
+
+		this.test=false;
 	}
 //
 	checkFree() {
-		let str=this.content;
-		let test=false;
-		if (str.search("void")>-1) { test=true;}
+		this.test=false;
+		if (this.content.search("void")>-1) { this.test=true;}
 		//console.log("is cell "+this.x+":"+this.y+" free ? "+test);
-		return test;
+		return this.test;
 	}
 
 	checkPlayer() {
-		let str=this.content;
-		let test=false;
+		this.test=false;
 		let reg=/player/g;
-		if (str.search(reg)>0) { test=true;}
+		if (this.content.search(reg)>0) { this.test=true;}
 		//console.log("is cell "+this.x+":"+this.y+" a player ? "+test);
-		return test;
+		return this.test;
 	}
 
 	checkWeapon() {
-		let str=this.content;
-		let test=false;
+		this.test=false;
 		let reg=/weapon/g;
-		if (str.search(reg)>0) { test=true;}
+		if (this.content.search(reg)>0) { this.test=true;}
 		//console.log("is cell "+this.x+":"+this.y+" a weapon ? "+test);
-		return test;
+		return this.test;
 	}
 
 	checkWall() {
-		let str=this.content;
-		let test=false;
-		if (str.search("mur")>-1) { test=true;}
+		this.test=false;
+		if (this.content.search("mur")>-1) { this.test=true;}
 		//console.log("is cell "+this.x+":"+this.y+" a wall ? "+test);
-		return test;
+		return this.test;
 	}
 
 	getWeapon(){
-		let str=this.content;
-		let stuff=str.split(' ');
+		let stuff=this.content.split(' ');
 		let reg=/weapon/g;
 		for (let w in stuff) {
 			let test=stuff[w];

@@ -21,7 +21,7 @@ $(document).ready(function () {
 	
 	function Victory(who) {
 	
-		console.log("victory "+who.name);
+		//console.log("victory "+who.name);
 		$('#grid').css("display","none");
 		$('#joueurs').css("display","none");
 		$('#action').css("display","none");
@@ -29,9 +29,6 @@ $(document).ready(function () {
 		$('#win').html("<h1>Félicitations ! "+who.name+ " a remporté la victoire !<br> avec "+who.HP+
 		" HP restants</h1><br><input id= 'reload' type='button' value='Nouvelle partie ?'>" );
 		
-		
-		//ajouter un reload
-	
 	}
 
 	function refresh(){
