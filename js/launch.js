@@ -26,8 +26,11 @@ $(document).ready(function () {
 		$('#joueurs').css("display","none");
 		$('#action').css("display","none");
 		$('#action').css("display","none");
-		$('#win').html("<h1>Félicitations ! "+who.name+ " a remporté la victoire !<br> avec "+who.HP+" HP restants</h1>" );
-	//ajouter un reload
+		$('#win').html("<h1>Félicitations ! "+who.name+ " a remporté la victoire !<br> avec "+who.HP+
+		" HP restants</h1><br><input id= 'reload' type='button' value='Nouvelle partie ?'>" );
+		
+		
+		//ajouter un reload
 	
 	}
 
@@ -172,6 +175,10 @@ $('#defP2').on('click', function(){
 	return;
 });
 
+
+$('#win').on('click','#reload', function(){
+	location.reload(); 
+});
 
  //bilan
 	if ( dmgchart === true ) {
