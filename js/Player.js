@@ -193,20 +193,23 @@ export default class Player {
 
 export function endTurn(who){
 
+	let Me;
+	let Him;
 
 	if (who === player1) {
-		player1.myTurn=false;
-		player2.myTurn=true;
-		//console.log("end of turn for player1");
-		player1.canPlay=false;
-		$( ".panel-joueur1" ).toggleClass("active-joueur1");
-		$( ".panel-joueur2" ).toggleClass("active-joueur2");
+		Me=player1;
+		Him=player2;
 	}
+
 	if (who === player2) {
-		player2.myTurn=false;
-		player1.myTurn=true;
-		//console.log("end of turn for player2");
-		player2.canPlay=false;
+		Me=player2;
+		Him=player1;
+	}
+
+	if (who === Me) {
+		Me.myTurn=false;
+		Him.myTurn=true;
+		Me.canPlay=false;
 		$( ".panel-joueur1" ).toggleClass("active-joueur1");
 		$( ".panel-joueur2" ).toggleClass("active-joueur2");
 	}
