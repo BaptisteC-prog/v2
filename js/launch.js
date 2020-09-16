@@ -48,6 +48,14 @@ $(document).ready(function () {
 		if ( player1.HP <= 0 ) { Victory(player2); }
 		if ( player2.HP <= 0 ) { Victory(player1); }
 		
+		//playboard.shiftX=(scale-1)*50;
+		//playboard.shiftY=(scale-1)*50;
+
+		$('#grid').css('transform', 'scale(' + playboard.scale + ')');
+		$('.check').css('transform', 'scale(' + playboard.scale + ')');
+		$('.fight').css('transform', 'scale(' + playboard.scale + ')');
+
+		
 	}
 
 
@@ -176,6 +184,37 @@ $('#defP2').on('click', function(){
 $('#win').on('click','#reload', function(){
 	location.reload(); 
 });
+
+$('#grid').on('click','.cell', function(){
+	let X=coordGet($(this).attr("coord"))[0];
+	let Y=coordGet($(this).attr("coord"))[1];
+	playboard.setObject(X,Y,"fight");
+});
+/*
+
+$( window ).resize(function() {
+
+	if( window.innerWidth<1700) {
+		playboard.scale=0.75;
+		playboard.shiftX= -0.12;
+		playboard.shiftY= -0.12;
+		refresh();
+	}
+
+});
+
+*/
+
+/*
+$( window ).resize(function() {
+	let max=window.innerWidth;
+	$('#grid').css("width",0.625*max);
+	playboard.scale=0.9*$('#grid').innerWidth()/1200;
+	
+	$('#grid').css('transform', 'scale(' + playboard.scale + ')');
+	refresh();
+  });*/
+
 
  //bilan
 	if ( dmgchart === true ) {

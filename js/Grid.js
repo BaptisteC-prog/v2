@@ -1,7 +1,7 @@
 import Cell from "./Cell.js";
 import {player1,player2} from "./Player.js";
 import weaponsList from "./Weapon.js"; 
-import { sizeX,sizeY,shiftX,shiftY,scale } from "./configUtils.js";
+import { sizeX,sizeY,shiftX,shiftY,scale,int } from "./configUtils.js";
 
 
 let debug=0;
@@ -14,6 +14,9 @@ export default class Grid {
 		this.player1=player1;
 		this.player2=player2;
 		this.weapons;
+		this.shiftX=shiftX;
+		this.shiftY=shiftY;
+		this.scale=scale;
 	}
 
 	generate(sizeX,sizeY) {
@@ -40,6 +43,7 @@ export default class Grid {
 		let newCell=$("<div class='cell void'></div>");
 		newCell.attr("coord",xxx+":"+yyy);
 		newCell.css("position","absolute").css("margin-left",100+100*xxx).css("margin-top",100+100*yyy);
+		//newCell.css("position","absolute").css("margin-left",100+100*xxx).css("margin-top",100+100*yyy);
 		let cell= new Cell(xxx,yyy,"cell void");
 
 		$("#grid").append(newCell);
@@ -151,8 +155,9 @@ export default class Grid {
 
 		let newCell=$(`<div class='${what}'></div>`);
 		$("#overlay").append(newCell);
-		newCell.attr("coord",x+":"+y);
-		newCell.css("position","absolute").css("margin-left",scale*(shiftX+100*x)).css("margin-top",scale*(shiftY+100*y));
+		newCell.attr("coord",x+":"+y);//100+scale(100*)
+		newCell.css("position","absolute").css("margin-left",playboard.shiftX+int(scale*(100+100*x))).css("margin-top",playboard.shiftY+int(scale*(100+100*y)));
+		console.log(playboard.shiftX);
 	}
 
 	//la distance de manhattan est plus adaptée pour les plateaux de jeu

@@ -20,6 +20,26 @@ export const sizeX=10;
 export const sizeY=10;
 
 //important pour le styleSheets
-export const shiftX=0;
-export const shiftY=0;
-export const scale=0.9;
+export let scale=0.9 //0.9
+export let shiftX=-5;//0
+export let shiftY=-5;//0
+
+
+
+/*
+
+0.9>>>-5
+0.75>>-12
+0.5>>>-25
+0.3>>>-35
+0.25>>>-38
+
+(0.75-1)*50
+
+
+shift (1-scale)*50
+scale 1 >>> shift 0   marge 108 
+scale 0.75            marge 83
+scale 0.5 >>> shift 50  marge 58
+scale 0.25>>> shift -50
+*/
