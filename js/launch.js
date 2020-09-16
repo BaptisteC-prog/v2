@@ -185,11 +185,12 @@ $('#win').on('click','#reload', function(){
 	location.reload(); 
 });
 
+/*
 $('#grid').on('click','.cell', function(){
 	let X=coordGet($(this).attr("coord"))[0];
 	let Y=coordGet($(this).attr("coord"))[1];
 	playboard.setObject(X,Y,"fight");
-});
+});*/
 /*
 
 $( window ).resize(function() {
