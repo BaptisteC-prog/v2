@@ -17,6 +17,7 @@ export default class Grid {
 		this.shiftX=shiftX;
 		this.shiftY=shiftY;
 		this.scale=scale;
+		this.margin=30;
 	}
 
 	generate(sizeX,sizeY) {
@@ -42,7 +43,7 @@ export default class Grid {
 		//console.log("generate col : "+xxx+" : "+yyy);
 		let newCell=$("<div class='cell void'></div>");
 		newCell.attr("coord",xxx+":"+yyy);
-		newCell.css("position","absolute").css("margin-left",100+100*xxx).css("margin-top",100+100*yyy);
+		newCell.css("position","absolute").css("margin-left",this.margin+100*xxx).css("margin-top",this.margin+100*yyy);
 		//newCell.css("position","absolute").css("margin-left",100+100*xxx).css("margin-top",100+100*yyy);
 		let cell= new Cell(xxx,yyy,"cell void");
 
@@ -156,7 +157,7 @@ export default class Grid {
 		let newCell=$(`<div class='${what}'></div>`);
 		$("#overlay").append(newCell);
 		newCell.attr("coord",x+":"+y);//100+scale(100*)
-		newCell.css("position","absolute").css("margin-left",playboard.shiftX+int(scale*(100+100*x))).css("margin-top",playboard.shiftY+int(scale*(100+100*y)));
+		newCell.css("position","absolute").css("margin-left",playboard.shiftX+int(scale*(this.margin+100*x))).css("margin-top",playboard.shiftY+int(scale*(this.margin+100*y)));
 		console.log(playboard.shiftX);
 	}
 

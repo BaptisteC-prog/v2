@@ -20,9 +20,9 @@ export const sizeX=10;
 export const sizeY=10;
 
 //important pour le styleSheets
-export let scale=0.9 //0.9
-export let shiftX=-5;//0
-export let shiftY=-5;//0
+export let scale=0.8 //0.9
+export let shiftX=-10;//0
+export let shiftY=-10;//0
 
 
 

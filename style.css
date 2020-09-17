@@ -94,7 +94,7 @@ input {
 #joueurs {
 	border:0px #000 solid;
 	width:700px;
-	margin-left:-150px;
+	margin-left:-350px;
 	height:850px;
 	float: left;
 	margin-top:-1110px;	
@@ -109,7 +109,7 @@ input {
 	height:300px;
 	float: left;
 	margin-top:-750px;	
-	margin-left:-150px;
+	margin-left:-350px;
 	}
 
 table{
@@ -160,14 +160,14 @@ font-size:150%;
 	
 }
 
-@media screen and (max-width: 1800px) {
+@media screen and (max-width: 1600px) {
 	#joueurs {
-	margin-top:-150px;
+	margin-top:-350px;
 	margin-left:-1110px;
 	}
 
 	#action {
-		margin-top:220px;
+		margin-top:20px;
 		margin-left:-1110px;
 		}
 
