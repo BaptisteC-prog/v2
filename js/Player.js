@@ -18,7 +18,7 @@ export default class Player {
 		this.isAttacking=true; //isAttacking
 		this.canPlay=true;
 		this.CSSName="";
-		
+				
 	}
 
 	checkMoves(){
@@ -41,7 +41,8 @@ export default class Player {
 				if (cell.checkPlayer() || cell.checkWall()) { okMove = false; }
 				if ((cell.checkFree() || cell.checkWeapon())
 					&& okMove
-					&& this.posX - left >= 0) {
+					&& this.posX - left >= 0
+					&& !playboard.fightStarted ) {
 					playboard.setOverlay(this.posX - left, this.posY, "check");
 				}
 			}
@@ -62,7 +63,8 @@ export default class Player {
 				if (cell.checkPlayer() || cell.checkWall()) { okMove = false; }
 				if ((cell.checkFree() || cell.checkWeapon())
 					&& okMove
-					&& cellAdd < playboard.sizeY) {
+					&& cellAdd < playboard.sizeY
+					&& !playboard.fightStarted ) {
 					playboard.setOverlay(this.posX, cellAdd, "check");
 				}
 			}
@@ -81,7 +83,8 @@ export default class Player {
 				if (cell.checkPlayer() || cell.checkWall()) { okMove = false; }
 				if ((cell.checkFree() || cell.checkWeapon())
 					&& okMove
-					&& cellAdd < playboard.sizeX) {
+					&& cellAdd < playboard.sizeX
+					&& !playboard.fightStarted ) {
 					playboard.setOverlay(cellAdd, this.posY, "check");
 				}
 			}
@@ -99,7 +102,8 @@ export default class Player {
 				if (cell.checkPlayer() || cell.checkWall()) { okMove = false; }
 				if ((cell.checkFree() || cell.checkWeapon())
 					&& okMove
-					&& this.posY - up >= 0) {
+					&& this.posY - up >= 0
+					&& !playboard.fightStarted ) {
 					playboard.setOverlay(this.posX, this.posY - up, "check");
 
 				}

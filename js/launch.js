@@ -1,16 +1,13 @@
-import Cell from "./Cell.js";
-import Grid from "./Grid.js";
 import {playboard} from "./Grid.js";
-import Weapon from "./Weapon.js";  // les METHODES de weapon
-import Player from "./Player.js"; 
 import {player1,player2,endTurn} from "./Player.js";
 import {weapon0,weapon1,weapon2,weapon3,weapon4} from "./Weapon.js"; //les OBJETS de weapon
-import { sizeX,sizeY,shiftX,shiftY,scale,rint,rnd } from "./configUtils.js";
+import { sizeX,sizeY,shiftX,shiftY,scale,rint,rnd,max } from "./configUtils.js";
+import { fight } from "./fight.js";
 
 $(document).ready(function () {
 	
 	let dmgchart=false;
-
+	
 	$( ".panel-joueur2" ).toggleClass("active-joueur2");
 
 
@@ -47,9 +44,6 @@ $(document).ready(function () {
 
 		if ( player1.HP <= 0 ) { Victory(player2); }
 		if ( player2.HP <= 0 ) { Victory(player1); }
-		
-		//playboard.shiftX=(scale-1)*50;
-		//playboard.shiftY=(scale-1)*50;
 
 		$('#grid').css('transform', 'scale(' + playboard.scale + ')');
 		$('.check').css('transform', 'scale(' + playboard.scale + ')');
@@ -79,7 +73,7 @@ $(document).ready(function () {
 
 	$('#grid').on('click','.player1', function(){
 		
-		if (player1.myTurn) {
+		if (player1.myTurn ) {
 			player1.checkMoves();
 			player1.canPlay=true;
 		}
@@ -88,7 +82,7 @@ $(document).ready(function () {
 
 	$('#grid').on('click','.player2', function(){
 
-		if (player2.myTurn) {
+		if (player2.myTurn ) {
 			player2.checkMoves();
 			player2.canPlay=true;
 		}
@@ -110,6 +104,7 @@ $(document).ready(function () {
 
 	player1.canPlay=true;
 	player2.canPlay=true;
+	playboard.fightStarted=true;
 	
 	let Me;
 	let Him;
@@ -125,14 +120,8 @@ $(document).ready(function () {
 	}
 
 	if (Me.myTurn && Me.canPlay && Me.isAttacking ) {
-		Me.canPlay=false;
-		let dmg=Me.weapon.weaponDMGOuput();
-		if (!Him.isAttacking) {dmg=rint(dmg/2); }
-		Him.HP-=dmg;
-		$("#liste").append("<li class='item'>"+Me.name+" attaque "+Him.name+" pour "+dmg+" degats!</li>") ;
-		endTurn(Me);
+		fight(Me,Him);
 		refresh();
-		$('#overlay').html("");
 		return;
 	}
 
@@ -184,38 +173,6 @@ $('#defP2').on('click', function(){
 $('#win').on('click','#reload', function(){
 	location.reload(); 
 });
-
-/*
-$('#grid').on('click','.cell', function(){
-	let X=coordGet($(this).attr("coord"))[0];
-	let Y=coordGet($(this).attr("coord"))[1];
-	playboard.setObject(X,Y,"fight");
-});*/
-/*
-
-$( window ).resize(function() {
-
-	if( window.innerWidth<1700) {
-		playboard.scale=0.75;
-		playboard.shiftX= -0.12;
-		playboard.shiftY= -0.12;
-		refresh();
-	}
-
-});
-
-*/
-
-/*
-$( window ).resize(function() {
-	let max=window.innerWidth;
-	$('#grid').css("width",0.625*max);
-	playboard.scale=0.9*$('#grid').innerWidth()/1200;
-	
-	$('#grid').css('transform', 'scale(' + playboard.scale + ')');
-	refresh();
-  });*/
-
 
  //bilan
 	if ( dmgchart === true ) {

@@ -18,6 +18,7 @@ export default class Grid {
 		this.shiftY=shiftY;
 		this.scale=scale;
 		this.margin=30;
+		this.fightStarted=false;
 	}
 
 	generate(sizeX,sizeY) {

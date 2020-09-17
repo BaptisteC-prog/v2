@@ -15,6 +15,11 @@ export function rnd(p=1){
   return	Math.pow(Math.random(),p);
 }
 
+
+export function max(a,b) {
+  return ( a > b  ? a :b  );
+}
+
 //CONFIG
 export const sizeX=10;
 export const sizeY=10;
