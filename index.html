@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html  lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <title>Open Classroom - Projet 6</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+	<link href="https://fonts.googleapis.com/css2?family=ABeeZee&display=swap" rel="stylesheet"> 
+  </head>
+  <body>
+	<div id="win">
+	</div>
+  	<div id="overlay">
+	</div>
+	<div class="col-lg-8">
+		<div id="grid">
+		</div>
+	</div>
+<!-- <script src="jquery.js"></script>-->
+
+
+   <!---<script type="module" src="js/Cell.js"></script> -->
+  <div id="space">
+  
+	<div class="col-lg-4">
+	<section id="joueurs">
+			<div class="panel-joueur1 active-joueur1">
+
+				<input type="text" id="namePlayer1" value="Le bleu">
+				<br><br>
+				<table>
+					<tr>
+					<td><img src="img/joueur10.png"></td>
+					<td><p>&nbsp;<span id="hp1"></span>HP</p></td>
+					</tr>
+				</table>
+				<p>Arme : <span id="weapon1">...</span> </p>
+
+				<input id= "attP1" type="button" value="J'attaque !">
+				<input id= "defP1" type="button" value="Je defends !">
+				<p id="modeP1"></p>
+				
+			</div>
+		
+			<div class="panel-joueur2  active-joueur2">
+
+				<input type="text" id="namePlayer2" value="Le rouge">
+				<br><br>
+				<table>
+					<tr>
+					<td><img src="img/joueur20.png"></td>
+					<td><p>&nbsp;<span id="hp2"></span>HP</p></td>
+					</tr>
+				</table>
+				<p>Arme : <span id="weapon2">...</span> </p>
+				
+				<input id= "attP2" type="button" value="J'attaque !">
+				<input id= "defP2" type="button" value="Je defends !">
+				<p id="modeP2"></p>
+			</div>
+	</section>
+	
+	<section id="action">
+		<ul id="liste">
+		</ul>
+	</section>  
+	</div>
+  </div>
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script type="module" src="js/configUtils.js"></script>  
+<script type="module" src="js/launch.js"></script>
+  
+<!--
+   <script  src="js/Grid.js"></script> 
+
+
+-->  
+ </body>
+</html>
