@@ -24,7 +24,7 @@ export function fight(attacker,target){
     }  
     else
     { 
-        $("#liste").append("<li class='item'>"+Him.name+" a esquivé l'attque de "+Me.name+" !</li>") ;
+        $("#liste").append("<li class='item'>"+Him.name+" a esquivé l'attaque de "+Me.name+" !</li>") ;
     }
 
     endTurn(Me);
