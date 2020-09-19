@@ -40,7 +40,7 @@ $(document).ready(function () {
 		player2.name=$("#namePlayer2").val();
 
 		let numItems = $('.item').length;
-		if (numItems >10 ) { $(".item").eq(0).remove(); }
+		if (numItems >=10 ) { $(".item").eq(0).remove(); }
 
 		if ( player1.HP <= 0 ) { Victory(player2); }
 		if ( player2.HP <= 0 ) { Victory(player1); }
@@ -49,6 +49,12 @@ $(document).ready(function () {
 		$('.check').css('transform', 'scale(' + playboard.scale + ')');
 		$('.fight').css('transform', 'scale(' + playboard.scale + ')');
 
+		if (playboard.fightStarted) {
+			$('#attP1').removeClass("secret");
+			$('#defP1').removeClass("secret");
+			$('#attP2').removeClass("secret");
+			$('#defP2').removeClass("secret");
+		}
 		
 	}
 
@@ -120,6 +126,9 @@ $(document).ready(function () {
 	}
 
 	if (Me.myTurn && Me.canPlay && Me.isAttacking ) {
+
+		
+
 		fight(Me,Him);
 		refresh();
 		return;
@@ -138,35 +147,52 @@ $(document).ready(function () {
  ///////////////////////////////////////////////////////////////////////////////
  ///INTERACT
  $('#attP1').on('click', function(){
-	player1.isAttacking=true;
-	$("#liste").append("<li class='item'>"+player1.name+" passe a l'attaque</li>") ;
-	endTurn(player1);
-	refresh();
+	 if (player1.myTurn) {
+		player1.isAttacking=true;
+		//$("#liste").append("<li class='item'>"+player1.name+" passe a l'attaque</li>") ;
+		fight(player1,player2);
+		$('#overlay').html("");
+		refresh();
+		return;
+		//endTurn(player1);
+		
+	 }
 });
 
 
 $('#defP1').on('click', function(){
-	player1.isAttacking=false;
-	endTurn(player1);
-	$("#liste").append("<li class='item'>"+player1.name+" choisit de se défendre</li>") ;
-	refresh();
-	return;
+	if (player1.myTurn) {
+		player1.isAttacking=false;
+		endTurn(player1);
+		$("#liste").append("<li class='item'>"+player1.name+" choisit de se défendre</li>") ;
+		refresh();
+		$('#overlay').html("");
+		return;
+	}
 });
 
 $('#attP2').on('click', function(){
-	player2.isAttacking=true;
-	$("#liste").append("<li class='item'>"+player2.name+" passe a l'attaque</li>") ;
-	endTurn(player2);
-	refresh();
+	if (player2.myTurn) {
+		player2.isAttacking=true;
+		//$("#liste").append("<li class='item'>"+player2.name+" passe a l'attaque</li>") ;
+		$('#overlay').html("");
+		fight(player2,player1);
+		//endTurn(player2);
+		refresh();
+		return;
+	}
 });
 
 
 $('#defP2').on('click', function(){
-	player2.isAttacking=false;
-	endTurn(player2);
-	$("#liste").append("<li class='item'>"+player2.name+" choisit de se défendre</li>") ;
-	refresh();
-	return;
+	if (player1.myTurn) {
+		player2.isAttacking=false;
+		endTurn(player2);
+		$("#liste").append("<li class='item'>"+player2.name+" choisit de se défendre</li>") ;
+		$('#overlay').html("");
+		refresh();
+		return;
+	}
 });
 
 
