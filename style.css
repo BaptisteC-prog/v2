@@ -3,6 +3,7 @@
 	
 	float:left;
 	margin-left:-0px;
+	opacity:0.9;
 	
 /*	position:absolute;
 	margin-left:-190px;
@@ -13,6 +14,12 @@
 	height:1100px;
 	overflow: scroll;*/
 	
+}
+
+body {
+	background:#717ba8;
+	background-image: url('img/bg3.jpg');
+	/*background-size:75%;*/
 }
 
 #win {
@@ -100,16 +107,20 @@ input {
 	margin-top:-1110px;	
 	display:flex;
 	text-align:center;
+	opacity:0.8;
 	
 	}
 
 #action {
+	border:1px #545454 solid;
+	background: #e5e1cf;
 	box-shadow: inset 0 0 100px gold;	
-	width:600px;
+	width:603px;
 	height:300px;
 	float: left;
 	margin-top:-750px;	
 	margin-left:-350px;
+	opacity:0.8;
 	}
 
 table{
@@ -120,8 +131,9 @@ table{
 	border:1px #545454 solid;
 	width:250px;
 	height:300px;
-padding:25px;
-box-shadow: inset 0 0 10px #bfcfff;
+	padding:25px;
+	box-shadow: inset 0 0 10px #80a4ff;
+	background:#cfd3e5;
 
 }
 
@@ -131,7 +143,8 @@ box-shadow: inset 0 0 10px #bfcfff;
 	height:300px;
 	float:right;
 	padding:25px;
-box-shadow: inset 0 0 10px #ffcfbf;	
+	box-shadow: inset 0 0 10px #ff9b80;	
+	background:#e5d4cf;
 }
 
 #joueurs input[type='text']{
@@ -141,11 +154,11 @@ box-shadow: inset 0 0 10px #ffcfbf;
 }
 
 .active-joueur1{
-	 box-shadow: inset 0 0 100px #809fff;
+	 box-shadow: inset 0 0 100px #4e79e5;
 }
 
 .active-joueur2{
-	 box-shadow: inset 0 0 100px #ff9f80;
+	 box-shadow: inset 0 0 100px #e27250;
 }
 
 

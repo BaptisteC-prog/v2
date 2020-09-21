@@ -41,6 +41,8 @@ $(document).ready(function () {
 
 		let numItems = $('.item').length;
 		if (numItems >=10 ) { $(".item").eq(0).remove(); }
+		if (numItems >=10 ) { $(".item").eq(0).remove(); }
+		if (numItems >=10 ) { $(".item").eq(0).remove(); }
 
 		if ( player1.HP <= 0 ) { Victory(player2); }
 		if ( player2.HP <= 0 ) { Victory(player1); }
@@ -163,10 +165,10 @@ $(document).ready(function () {
 $('#defP1').on('click', function(){
 	if (player1.myTurn) {
 		player1.isAttacking=false;
-		endTurn(player1);
 		$("#liste").append("<li class='item'>"+player1.name+" choisit de se défendre</li>") ;
 		refresh();
 		$('#overlay').html("");
+		endTurn(player1);
 		return;
 	}
 });
@@ -185,11 +187,11 @@ $('#attP2').on('click', function(){
 
 
 $('#defP2').on('click', function(){
-	if (player1.myTurn) {
+	if (player2.myTurn) {
 		player2.isAttacking=false;
-		endTurn(player2);
 		$("#liste").append("<li class='item'>"+player2.name+" choisit de se défendre</li>") ;
 		$('#overlay').html("");
+		endTurn(player2);
 		refresh();
 		return;
 	}
