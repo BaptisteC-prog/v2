@@ -64,6 +64,13 @@ export default class Grid {
 		}
 	}
 
+	generateTraps(num){
+		for (let i=0;i<num;i++){
+			let cell=this.randomCell();
+			if  (cell.checkFree() ) { this.setObject(cell.x,cell.y,"trap") }
+		}
+	}
+
 	pickCell(x,y){
 		//console.log("pickCell : "+x+" : "+y);
 		if ( x>=0

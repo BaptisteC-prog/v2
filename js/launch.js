@@ -2,12 +2,13 @@ import {playboard} from "./Grid.js";
 import {player1,player2,endTurn} from "./Player.js";
 import {weapon0,weapon1,weapon2,weapon3,weapon4} from "./Weapon.js"; //les OBJETS de weapon
 import { sizeX,sizeY,shiftX,shiftY,scale,rint,rnd,max } from "./configUtils.js";
-import { fight } from "./fight.js";
+import { fight,useV3 } from "./fight.js";
 
 $(document).ready(function () {
 	
 	let dmgchart=false;
 	
+
 	$( ".panel-joueur2" ).toggleClass("active-joueur2");
 
 
@@ -56,6 +57,7 @@ $(document).ready(function () {
 			$('#defP1').removeClass("secret");
 			$('#attP2').removeClass("secret");
 			$('#defP2').removeClass("secret");
+			if (useV3) { $('#actiontable').removeClass("secret"); $('#actiontable2').removeClass("secret");  }
 		}
 		
 	}
@@ -67,7 +69,9 @@ $(document).ready(function () {
 
 	let numWalls=Math.ceil((0.075+rnd()*0.075)*sizeX*sizeY);
 
+	if (useV3) { playboard.generateTraps(numWalls*0.5); }
 	playboard.generateWall(numWalls);
+	
 	//console.log("###END GENERATION###______________________________________________________________________________________________");
 
 	playboard.spawnPlayers();

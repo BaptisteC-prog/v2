@@ -21,13 +21,13 @@
    <!---<script type="module" src="js/Cell.js"></script> -->
   <div id="space">
   
-	<div class="col-lg-4">
+	
 	<section id="joueurs">
 			<div class="panel-joueur1 active-joueur1">
 
 				<input type="text" id="namePlayer1" value="Le bleu">
 				<br><br>
-				<table>
+				<table class="playertable">
 					<tr>
 					<td><img src="img/joueur10.png"></td>
 					<td><p>&nbsp;<span id="hp1"></span>HP</p></td>
@@ -37,6 +37,13 @@
 
 				<input id= "attP1" class="secret" type="button" value="J'attaque !">
 				<input id= "defP1" class="secret" type="button" value="Je defends !">
+				<table id="actiontable" class="secret">
+					<tr>
+						<td id="act11"></td>
+						<td id="act12"></td>
+						<td id="act13"></td>
+					</tr>
+				</table>
 				<p id="modeP1"></p>
 				
 			</div>
@@ -45,7 +52,7 @@
 
 				<input type="text" id="namePlayer2" value="Le rouge">
 				<br><br>
-				<table>
+				<table class="playertable">
 					<tr>
 					<td><img src="img/joueur20.png"></td>
 					<td><p>&nbsp;<span id="hp2"></span>HP</p></td>
@@ -55,6 +62,13 @@
 				
 				<input id= "attP2" class="secret" type="button" value="J'attaque !">
 				<input id= "defP2" class="secret" type="button" value="Je defends !">
+				<table id="actiontable2" class="secret">
+					<tr>
+						<td id="act21"></td>
+						<td id="act22"></td>
+						<td id="act23"></td>
+					</tr>
+				</table>
 				<p id="modeP2"></p>
 			</div>
 	</section>
@@ -62,16 +76,20 @@
 	<section id="action">
 		<ul id="liste">
 		</ul>
+		
 	</section>  
-	</div>
+
+	
+	
+	<p id="help-content"></p>
   </div>
-    
+    <p class="debug"></p>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script type="module" src="js/configUtils.js"></script>  
 <script type="module" src="js/launch.js"></script>
-  
+<script type="module" src="js/help.js"></script>  
 <!--
    <script  src="js/Grid.js"></script> 
 

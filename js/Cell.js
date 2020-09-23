@@ -37,6 +37,13 @@ export default class Cell {
 		return this.test;
 	}
 
+	checkTrap() {
+		this.test=false;
+		if (this.content.search("trap")>-1) { this.test=true;}
+		//console.log("is cell "+this.x+":"+this.y+" a wall ? "+test);
+		return this.test;
+	}
+
 	getWeapon(){
 		let stuff=this.content.split(' ');
 		let reg=/weapon/g;

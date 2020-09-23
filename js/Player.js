@@ -1,10 +1,12 @@
 import { weapon0,weapon1,weapon2,weapon3,weapon4 } from "./Weapon.js";
 import { playboard } from "./Grid.js";
+
 import Cell from "./Cell.js";
 import Grid from "./Grid.js";
 import Weapon from "./Weapon.js"; 
 import weaponsList from "./Weapon.js"; 
 import { rint,int,rnd } from "./configUtils.js";
+import { rollStuff } from "./fight.js"
 
 export default class Player {
     constructor(name, posX,posY) {
@@ -18,6 +20,15 @@ export default class Player {
 		this.isAttacking=true; //isAttacking
 		this.canPlay=true;
 		this.CSSName="";
+
+		///V3///
+
+		this.att=100;
+		this.def=100;
+		this.spd=100;
+		this.chance=1.0;
+		this.vamp=0;
+		this.rebound=0;
 				
 	}
 
@@ -39,7 +50,7 @@ export default class Player {
 			if (playboard.isOnBoard(this.posX - left, this.posY)) {
 				if (cell.checkPlayer() && okMove && left === 1) { playboard.setOverlay(this.posX - left, this.posY, "fight"); }
 				if (cell.checkPlayer() || cell.checkWall()) { okMove = false; }
-				if ((cell.checkFree() || cell.checkWeapon())
+				if ((cell.checkFree() || cell.checkWeapon() || cell.checkTrap())
 					&& okMove
 					&& this.posX - left >= 0
 					&& !playboard.fightStarted ) {
@@ -61,7 +72,7 @@ export default class Player {
 			if (playboard.isOnBoard(this.posX, cellAdd)) {
 				if (cell.checkPlayer() && okMove && down === 1) { playboard.setOverlay(this.posX, cellAdd, "fight"); }
 				if (cell.checkPlayer() || cell.checkWall()) { okMove = false; }
-				if ((cell.checkFree() || cell.checkWeapon())
+				if ((cell.checkFree() || cell.checkWeapon() || cell.checkTrap())
 					&& okMove
 					&& cellAdd < playboard.sizeY
 					&& !playboard.fightStarted ) {
@@ -81,7 +92,7 @@ export default class Player {
 			if (playboard.isOnBoard(cellAdd, this.posY)) {
 				if (cell.checkPlayer() && okMove && right === 1) { playboard.setOverlay(cellAdd, this.posY, "fight"); }
 				if (cell.checkPlayer() || cell.checkWall()) { okMove = false; }
-				if ((cell.checkFree() || cell.checkWeapon())
+				if ((cell.checkFree() || cell.checkWeapon() || cell.checkTrap())
 					&& okMove
 					&& cellAdd < playboard.sizeX
 					&& !playboard.fightStarted ) {
@@ -100,7 +111,7 @@ export default class Player {
 			if (playboard.isOnBoard(this.posX, this.posY - up)) {
 				if (cell.checkPlayer() && okMove && up === 1) { playboard.setOverlay(this.posX, this.posY - up, "fight"); }
 				if (cell.checkPlayer() || cell.checkWall()) { okMove = false; }
-				if ((cell.checkFree() || cell.checkWeapon())
+				if ((cell.checkFree() || cell.checkWeapon() || cell.checkTrap())
 					&& okMove
 					&& this.posY - up >= 0
 					&& !playboard.fightStarted ) {
@@ -122,6 +133,17 @@ export default class Player {
 		if (player.myTurn) {
 			let cell=playboard.pickCell(x,y);
 			let origin=playboard.pickCell(player.posX,player.posY);
+
+			if ( cell.checkTrap() ) { 
+				let dmg=rint(10+20*rnd(3));
+				player.HP-=dmg;
+				$("#liste").append("<li class='item'>Piege ! "+player.name+" a perdu "+dmg+" HP!</li>") ;
+				playboard.remAll(x,y);
+				playboard.synchro(x,y);
+				$("#hp1").html(player1.HP);
+				$("#hp2").html(player2.HP);
+			}
+
 			if ( !cell.checkWeapon()){
 				
 				if ( player.canPlay){
@@ -167,6 +189,13 @@ export default class Player {
 		}
 	}
 
+	resetStats(){
+		this.att=100;
+		this.spd=100;
+		this.chance=1.0;
+		this.vamp=0;
+	}
+
 	equip(weapon){
 		switch (weapon) {
 			case "weapon0":
@@ -195,10 +224,19 @@ export default class Player {
 	}
 }
 
+
+
 export function endTurn(who){
 
 	let Me;
 	let Him;
+
+	if (playboard.fightStarted) {
+	$( "#attP1" ).removeClass("secret");
+	$( "#defP1" ).removeClass("secret");
+	$( "#attP2" ).removeClass("secret");
+	$( "#defP2" ).removeClass("secret");
+	}
 
 	if (who === player1) {
 		Me=player1;
@@ -214,9 +252,12 @@ export function endTurn(who){
 		Me.myTurn=false;
 		Him.myTurn=true;
 		Me.canPlay=false;
+
 		$( ".panel-joueur1" ).toggleClass("active-joueur1");
 		$( ".panel-joueur2" ).toggleClass("active-joueur2");
 	}
+
+	if (rnd()>0.666*0 && playboard.fightStarted) { rollStuff(Me); }
 
 }
 
