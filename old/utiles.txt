@@ -1,6 +1,0 @@
-Cell <<< la cellule doit etre un objet
-Grid
-Players
-Weapons
-Medic <<< ton truc en plus
-Game <<< les commentaires

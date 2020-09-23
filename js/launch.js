@@ -1,15 +1,13 @@
-import Cell from "./Cell.js";
-import Grid from "./Grid.js";
 import {playboard} from "./Grid.js";
-import Weapon from "./Weapon.js";  // les METHODES de weapon
-import Player from "./Player.js"; 
 import {player1,player2,endTurn} from "./Player.js";
 import {weapon0,weapon1,weapon2,weapon3,weapon4} from "./Weapon.js"; //les OBJETS de weapon
-import { sizeX,sizeY,shiftX,shiftY,scale,rint,rnd } from "./configUtils.js";
+import { sizeX,sizeY,shiftX,shiftY,scale,rint,rnd,max } from "./configUtils.js";
+import { fight,useV3 } from "./fight.js";
 
 $(document).ready(function () {
 	
 	let dmgchart=false;
+	
 
 	$( ".panel-joueur2" ).toggleClass("active-joueur2");
 
@@ -21,14 +19,14 @@ $(document).ready(function () {
 	
 	function Victory(who) {
 	
-		console.log("victory "+who.name);
+		//console.log("victory "+who.name);
 		$('#grid').css("display","none");
 		$('#joueurs').css("display","none");
 		$('#action').css("display","none");
 		$('#action').css("display","none");
-		$('#win').html("<h1>Félicitations ! "+who.name+ " a remporté la victoire !<br> avec "+who.HP+" HP restants</h1>" );
-	//ajouter un reload
-	
+		$('#win').html("<h1>Félicitations ! "+who.name+ " a remporté la victoire !<br> avec "+who.HP+
+		" HP restants</h1><br><input id= 'reload' type='button' value='Nouvelle partie ?'>" );
+		
 	}
 
 	function refresh(){
@@ -43,10 +41,24 @@ $(document).ready(function () {
 		player2.name=$("#namePlayer2").val();
 
 		let numItems = $('.item').length;
-		if (numItems >10 ) { $(".item").eq(0).remove(); }
+		if (numItems >=10 ) { $(".item").eq(0).remove(); }
+		if (numItems >=10 ) { $(".item").eq(0).remove(); }
+		if (numItems >=10 ) { $(".item").eq(0).remove(); }
 
 		if ( player1.HP <= 0 ) { Victory(player2); }
 		if ( player2.HP <= 0 ) { Victory(player1); }
+
+		$('#grid').css('transform', 'scale(' + playboard.scale + ')');
+		$('.check').css('transform', 'scale(' + playboard.scale + ')');
+		$('.fight').css('transform', 'scale(' + playboard.scale + ')');
+
+		if (playboard.fightStarted) {
+			$('#attP1').removeClass("secret");
+			$('#defP1').removeClass("secret");
+			$('#attP2').removeClass("secret");
+			$('#defP2').removeClass("secret");
+			if (useV3) { $('#actiontable').removeClass("secret"); $('#actiontable2').removeClass("secret");  }
+		}
 		
 	}
 
@@ -57,8 +69,10 @@ $(document).ready(function () {
 
 	let numWalls=Math.ceil((0.075+rnd()*0.075)*sizeX*sizeY);
 
+	if (useV3) { playboard.generateTraps(numWalls*0.5); }
 	playboard.generateWall(numWalls);
-	console.log("###END GENERATION###______________________________________________________________________________________________");
+	
+	//console.log("###END GENERATION###______________________________________________________________________________________________");
 
 	playboard.spawnPlayers();
 	playboard.spawnWeapons();
@@ -71,7 +85,7 @@ $(document).ready(function () {
 
 	$('#grid').on('click','.player1', function(){
 		
-		if (player1.myTurn) {
+		if (player1.myTurn ) {
 			player1.checkMoves();
 			player1.canPlay=true;
 		}
@@ -80,7 +94,7 @@ $(document).ready(function () {
 
 	$('#grid').on('click','.player2', function(){
 
-		if (player2.myTurn) {
+		if (player2.myTurn ) {
 			player2.checkMoves();
 			player2.canPlay=true;
 		}
@@ -102,19 +116,30 @@ $(document).ready(function () {
 
 	player1.canPlay=true;
 	player2.canPlay=true;
+	playboard.fightStarted=true;
 	
+	let Me;
+	let Him;
+
 	if (player1.myTurn && player1.canPlay && player1.isAttacking ) {
-		player1.canPlay=false;
-		let dmg=player1.weapon.weaponDMGOuput();
-		if (!player2.isAttacking) {dmg=rint(dmg/2); }
-		player2.HP-=dmg;
-		$("#liste").append("<li class='item'>"+player1.name+" attaque "+player2.name+" pour "+dmg+" degats!</li>") ;
-		endTurn(player1);
+		Me=player1;
+		Him=player2;
+	}
+
+	if (player2.myTurn && player2.canPlay && player2.isAttacking ) {
+		Me=player2;
+		Him=player1;
+	}
+
+	if (Me.myTurn && Me.canPlay && Me.isAttacking ) {
+
+		
+
+		fight(Me,Him);
 		refresh();
-		$('#overlay').html("");
 		return;
 	}
-	
+
 	if (player1.myTurn && player1.canPlay && !player1.isAttacking ) {
 		$("#liste").append("<li class='item'>"+player.name+" doit choisir de passer en attaque !</li>") ;
 	}
@@ -123,55 +148,63 @@ $(document).ready(function () {
 		$("#liste").append("<li class='item'>"+player.name+" doit choisir de passer en attaque !</li>") ;
 	}
 
-	
-	if (player2.myTurn && player2.canPlay && player2.isAttacking ) {
-		player2.canPlay=false;
-		let dmg=player2.weapon.weaponDMGOuput();
-		if (!player1.isAttacking) {dmg=rint(dmg/2); }
-		player1.HP-=dmg;
-		$("#liste").append("<li class='item'>"+player2.name+" attaque "+player1.name+" pour "+dmg+" degats!</li>") ;
-		endTurn(player2);
-		refresh();
-		$('#overlay').html("");
-		return;
-	}
-
  });
 
  ///////////////////////////////////////////////////////////////////////////////
  ///INTERACT
  $('#attP1').on('click', function(){
-	player1.isAttacking=true;
-	$("#liste").append("<li class='item'>"+player1.name+" passe a l'attaque</li>") ;
-	endTurn(player1);
-	refresh();
+	 if (player1.myTurn) {
+		player1.isAttacking=true;
+		//$("#liste").append("<li class='item'>"+player1.name+" passe a l'attaque</li>") ;
+		fight(player1,player2);
+		$('#overlay').html("");
+		refresh();
+		return;
+		//endTurn(player1);
+		
+	 }
 });
 
 
 $('#defP1').on('click', function(){
-	player1.isAttacking=false;
-	endTurn(player1);
-	$("#liste").append("<li class='item'>"+player1.name+" choisit de se défendre</li>") ;
-	refresh();
-	return;
+	if (player1.myTurn) {
+		player1.isAttacking=false;
+		$("#liste").append("<li class='item'>"+player1.name+" choisit de se défendre</li>") ;
+		refresh();
+		$('#overlay').html("");
+		endTurn(player1);
+		return;
+	}
 });
 
 $('#attP2').on('click', function(){
-	player2.isAttacking=true;
-	$("#liste").append("<li class='item'>"+player2.name+" passe a l'attaque</li>") ;
-	endTurn(player2);
-	refresh();
+	if (player2.myTurn) {
+		player2.isAttacking=true;
+		//$("#liste").append("<li class='item'>"+player2.name+" passe a l'attaque</li>") ;
+		$('#overlay').html("");
+		fight(player2,player1);
+		//endTurn(player2);
+		refresh();
+		return;
+	}
 });
 
 
 $('#defP2').on('click', function(){
-	player2.isAttacking=false;
-	endTurn(player2);
-	$("#liste").append("<li class='item'>"+player2.name+" choisit de se défendre</li>") ;
-	refresh();
-	return;
+	if (player2.myTurn) {
+		player2.isAttacking=false;
+		$("#liste").append("<li class='item'>"+player2.name+" choisit de se défendre</li>") ;
+		$('#overlay').html("");
+		endTurn(player2);
+		refresh();
+		return;
+	}
 });
 
+
+$('#win').on('click','#reload', function(){
+	location.reload(); 
+});
 
  //bilan
 	if ( dmgchart === true ) {
@@ -181,40 +214,5 @@ $('#defP2').on('click', function(){
 	console.log("3 :"+weapon3.minDmg+"-"+weapon3.maxDmg+ "   rnd:"+weapon3.randomTier);
 	console.log("4 :"+weapon4.minDmg+"-"+weapon4.maxDmg+ "   rnd:"+weapon4.randomTier);
 	}
-	//player1.weapon=weapon4;
-	//console.log(player1.weapon.name);
-
-
-	//playboard.setObject(5,0,"mur");
-	//playboard.setObject(4,0,"mur");
-	//playboard.setObject(5,1,"mur");
-	//playboard.setObject(6,0,"mur");
-
-	//console.log(playboard.canEscape(5,0));
-
-	//let cellrandom=playboard.randomCell();
-
-
-
-	//playboard.setObject(cellrandom.x,cellrandom.y,"test")
- /*
-	let test=playboard.pickCell(5,3);
-	let test2=playboard.pickCell(8,4);
-
-	let aaa=playboard.distance_man(test,test2);
-
-	console.log(aaa);*/
-
-	//console.log (playboard.getClasses(test.x,test.y));
-
-	//playboard.setObject(5,3,"test")
-
-	//test.checkFree();
-
-	//test.content="cell mur";
 	
-	//console.log (playboard.getClasses(test.x,test.y));
-	
-	
-   //console.log
 });

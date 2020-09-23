@@ -1,19 +1,32 @@
 #grid {
-	position:absolute;
+	
+	
+	float:left;
+	margin-left:-0px;
+	opacity:0.9;
+	
+/*	position:absolute;
 	margin-left:-190px;
 	margin-top:-190px;
 	padding:50px;
 	margin-bottom:50px;
 	width:1100px;
 	height:1100px;
-	overflow: scroll;
-	transform: scale(0.9);
+	overflow: scroll;*/
+	
+}
+
+body {
+	background:#717ba8;
+	background-image: url('img/bg.jpg');
+	background-size:115%;
 }
 
 #win {
 	
 	text-align:center;
-	
+	color:#FFFFFF;
+	text-shadow: 0px 0px 5px #ffca80;
 }
 
 .check {
@@ -34,6 +47,12 @@
 		transform: scale(0.9);
 }
 
+.debug{
+	color:#FFFFFF;
+	font-size:90%;
+	/*display:none;*/
+}
+
 #space {
 	position:absolute;
 	margin-left:1200px;
@@ -42,7 +61,7 @@
 	width:100px;
 }
 
-#secret {
+.secret {
 	display:none;
 }
 
@@ -59,6 +78,7 @@ body {
 input {
 	font-size:90%;
 }
+
 
 .cell {
 	/*border:1px #000 solid;*/
@@ -84,36 +104,57 @@ input {
 
 #joueurs {
 	border:0px #000 solid;
-	width:1100px;
-	margin-left:-200px;
+	width:700px;
+	margin-left:-350px;
 	height:850px;
 	float: left;
-	margin-top:-1200px;	
+	margin-top:-1175px;	
 	display:flex;
 	text-align:center;
+	opacity:0.8;
 	
 	}
 
-table{
+#action {
+	border:1px #545454 solid;
+	background: #e5e1cf;
+	box-shadow: inset 0 0 100px gold;	
+	width:603px;
+	height:300px;
+	float: left;
+	margin-top:-800px;	
+	margin-left:-350px;
+	opacity:0.8;
+	}
+
+.playertable{
 	margin-left:25%;
+	
+}
+
+#actiontable,#actiontable2{
+	margin-top:25px;
+	
 }
 
 .panel-joueur1{
 	border:1px #545454 solid;
 	width:250px;
-	height:400px;
-padding:25px;
-box-shadow: inset 0 0 10px #bfcfff;
+	height:300px;
+	padding:25px;
+	box-shadow: inset 0 0 10px #80a4ff;
+	background:#e6e8f2;
 
 }
 
 .panel-joueur2{
 	border:1px #545454 solid;
 	width:250px;
-	height:400px;
+	height:300px;
 	float:right;
 	padding:25px;
-box-shadow: inset 0 0 10px #ffcfbf;	
+	box-shadow: inset 0 0 10px #ff9b80;	
+	background:#f2e9e6;
 }
 
 #joueurs input[type='text']{
@@ -123,11 +164,11 @@ box-shadow: inset 0 0 10px #ffcfbf;
 }
 
 .active-joueur1{
-	 box-shadow: inset 0 0 100px #809fff;
+	 box-shadow: inset 0 0 100px #4e79e5;
 }
 
 .active-joueur2{
-	 box-shadow: inset 0 0 100px #ff9f80;
+	 box-shadow: inset 0 0 100px #e27250;
 }
 
 
@@ -137,19 +178,35 @@ margin-left:28%;
 font-size:150%;
 }
 
-#action {
-box-shadow: inset 0 0 100px gold;	
-	width:600px;
-	height:300px;
-	float: left;
-	margin-top:-700px;	
-	margin-left:-200px;
-}
-
 #action li {
 	font-size:120%;
 	
 }
+
+#help-content {
+	position:absolute;
+	top:-380px;
+	left:-1150px;
+	font-size:110%;
+	color:#fff;
+	text-shadow: 0px 0px 3px #ffca80;
+	width:800px;
+}
+
+
+@media screen and (max-width: 1600px) {
+	#joueurs {
+	margin-top:-320px;
+	margin-left:-1110px;
+	}
+
+	#action {
+		margin-top:30px;
+		margin-left:-1110px;
+		}
+
+  }
+
 
 .weapon0 {
 		background-image:url('img/arme0.png');
@@ -184,21 +241,12 @@ box-shadow: inset 0 0 100px gold;
 		background-image:url('img/joueur2.png');
 }
 
-
-
-
-
-.heal1 {
-		background-image:url('img/heal1.png');
+.test {
+	background-image:url('img/test.png');
 }
 
-
-.heal2 {
-		background-image:url('img/heal2.png');
-}
-
-.test
-
-{
-	background-image:url('img/Test.png');
+.trap {
+	
+	background-image:url('img/trap.png');
+	
 }
