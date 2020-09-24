@@ -5,7 +5,7 @@ import weaponsList from "./Weapon.js";
 import { sizeX,sizeY,shiftX,shiftY,scale,int } from "./configUtils.js";
 
 
-let debug=1;
+let debug=0;
 export default class Grid {
 	constructor(sizeX,sizeY)
 	{
