@@ -1,3 +1,4 @@
+"use strict";
 import { rint,int,rnd } from "./configUtils.js";
 
 export default class Weapon {

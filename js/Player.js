@@ -1,3 +1,4 @@
+"use strict";
 import { weapon0,weapon1,weapon2,weapon3,weapon4 } from "./Weapon.js";
 import { playboard } from "./Grid.js";
 
@@ -5,8 +6,10 @@ import Cell from "./Cell.js";
 import Grid from "./Grid.js";
 import Weapon from "./Weapon.js"; 
 import weaponsList from "./Weapon.js"; 
-import { rint,int,rnd } from "./configUtils.js";
-import { rollStuff } from "./fight.js"
+import { rint,int,rnd,max } from "./configUtils.js";
+//import Fight from "./Fight.js"
+
+let useV3=false;
 
 export default class Player {
     constructor(name, posX,posY) {
@@ -20,6 +23,8 @@ export default class Player {
 		this.isAttacking=true; //isAttacking
 		this.canPlay=true;
 		this.CSSName="";
+		this.test=false;
+
 
 		///V3///
 
@@ -163,6 +168,11 @@ export default class Player {
 					}
 					playboard.setObject(x,y,player.CSSName);
 					player.moveUpdate(x,y);
+					if (playboard.isPlayerNear(x,y)){
+						if (player === player1){ player1.fight(player1,player2); endTurn(player1); }
+						if (player === player2){ player2.fight(player2,player1); endTurn(player2); }
+					};// si oui lance le combat
+					
 				}
 			}
 			this.cellCheckWeapon(cell, player, x, y);
@@ -188,6 +198,53 @@ export default class Player {
 			playboard.setObject(x, y, "weapon" + player.prevWeapon.ID);
 		}
 	}
+
+	fight(attacker,target){
+        if (playboard.fightStarted) {
+            //me attacks him
+            let me=attacker;
+            let him=target;
+            //alert(me.name+" my turn:"+me.myTurn+" can play"+ me.canPlay +" is attacking"+ me.isAttacking)
+            me.canPlay=false;
+            //10% de chance d'esquiver
+            if ( rnd()>0.1 * him.spd/me.spd){
+
+                let dmg=me.weapon.weaponDMGOuput();
+                let critChance=3+max(15-me.HP/5,0)+max(18-dmg/2,0);
+
+                if (useV3){
+                    dmg=dmg*me.att/him.def;
+                    critChance*=me.chance;
+                    me.HP+=dmg*me.vamp;
+                    me.HP-=dmg*him.rebound;
+                    
+                    me.resetStats();
+                    him.def=100;
+                    him.rebound=0;
+
+                    
+            
+                }
+
+                //console.log("crit for "+me.name + " "+critChance );
+                if (rnd()*100<critChance)
+                { dmg=rint(dmg*(1.5+1.5*rnd(2))) ; 
+                    $("#liste").append("<li class='item'> coup critique pour "+me.name+" !!!</li>") ;
+                }
+                if (!him.isAttacking) {dmg=rint(dmg/2); }
+                him.HP-=dmg;
+                $("#liste").append("<li class='item'>"+me.name+" attaque "+him.name+" pour "+dmg+" degats !</li>") ;
+        
+            }  
+            else
+            { 
+                $("#liste").append("<li class='item'>"+him.name+" a esquivé l'attaque de "+me.name+" !</li>") ;
+            }
+
+            endTurn(me);
+            $('#overlay').html("");
+        }
+    }
 
 	resetStats(){
 		this.att=100;
@@ -224,12 +281,10 @@ export default class Player {
 	}
 }
 
-
-
 export function endTurn(who){
 
-	let Me;
-	let Him;
+	let me;
+	let him;
 
 	if (playboard.fightStarted) {
 	$( "#attP1" ).removeClass("secret");
@@ -239,26 +294,27 @@ export function endTurn(who){
 	}
 
 	if (who === player1) {
-		Me=player1;
-		Him=player2;
+		me=player1;
+		him=player2;
 	}
 
 	if (who === player2) {
-		Me=player2;
-		Him=player1;
+		me=player2;
+		him=player1;
 	}
 
-	if (who === Me) {
-		Me.myTurn=false;
-		Him.myTurn=true;
-		Me.canPlay=false;
+	if (who === me) {
+		me.myTurn=false;
+		him.myTurn=true;
+		me.canPlay=false;
 
 		$( ".panel-joueur1" ).toggleClass("active-joueur1");
 		$( ".panel-joueur2" ).toggleClass("active-joueur2");
 	}
 
-	if (rnd()>0.666*0 && playboard.fightStarted) { rollStuff(Me); }
+	//if (rnd()>0.666*0 && playboard.fightStarted && useV3) { rollStuff(me); }
 
+	
 }
 
 export let player1=new Player("bleu",0,0);

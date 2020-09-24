@@ -1,4 +1,4 @@
-
+"use strict";
 import {player1,player2} from "./Player.js";
 
 $('#grid').on('mouseover','.cell', function(){

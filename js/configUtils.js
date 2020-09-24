@@ -1,3 +1,4 @@
+"use strict";
 //fonctions utiles 
 //entier avec probabilité	
 export function rint(n) {
