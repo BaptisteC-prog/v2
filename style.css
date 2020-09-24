@@ -16,6 +16,22 @@
 	
 }
 
+#attP1,#attP2 {
+	background-image:url('img/attaque.png');
+	width:152px;
+	height:47px;
+	margin-bottom:5px;
+	border:none;
+	border-radius: 250px;
+}
+
+#defP1,#defP2 {
+	background-image:url('img/defense.png');
+	width:152px;
+	height:47px;
+	border:none;
+	border-radius: 250px;
+}
 body {
 	background:#717ba8;
 	background-image: url('img/bg.jpg');
@@ -50,7 +66,7 @@ body {
 .debug{
 	color:#FFFFFF;
 	font-size:90%;
-	/*display:none;*/
+	display:none;
 }
 
 #space {
@@ -160,7 +176,7 @@ input {
 #joueurs input[type='text']{
 	font-size:110%;
 	width:90%;
-	margin-top:50px;
+	margin-top:25px;
 }
 
 .active-joueur1{

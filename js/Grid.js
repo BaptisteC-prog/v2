@@ -1,10 +1,11 @@
+"use strict";
 import Cell from "./Cell.js";
 import {player1,player2} from "./Player.js";
 import weaponsList from "./Weapon.js"; 
 import { sizeX,sizeY,shiftX,shiftY,scale,int } from "./configUtils.js";
 
 
-let debug=0;
+let debug=1;
 export default class Grid {
 	constructor(sizeX,sizeY)
 	{
@@ -166,7 +167,7 @@ export default class Grid {
 		$("#overlay").append(newCell);
 		newCell.attr("coord",x+":"+y);//100+scale(100*)
 		newCell.css("position","absolute").css("margin-left",playboard.shiftX+int(scale*(this.margin+100*x))).css("margin-top",playboard.shiftY+int(scale*(this.margin+100*y)));
-		console.log(playboard.shiftX);
+		//console.log(playboard.shiftX);
 	}
 
 	//la distance de manhattan est plus adaptée pour les plateaux de jeu
@@ -247,6 +248,36 @@ export default class Grid {
 			let cell = this.randomFreeCell();
 			this.setObject(cell.x,cell.y,"weapon"+i);
 		}
+	}
+
+	isPlayerNear(x,y){
+		//console.log ("is player near "+x+":"+y);
+		let playerNear = false;
+		let cellTest;
+		cellTest=this.pickCell(x-1,y);
+		if ( x > 0) {
+			if ( cellTest.checkPlayer()  ) { playerNear = true;}
+		}
+		
+		cellTest=this.pickCell(x,y-1);
+		if ( y > 0 ) {
+			if ( cellTest.checkPlayer()  ) { playerNear = true;}
+		}
+		
+		cellTest=this.pickCell(x,int(y)+int(1));
+		if ( y < this.sizeY-1 ) {
+			if ( cellTest.checkPlayer()  ) { playerNear = true;}
+		}
+		
+		cellTest=this.pickCell(int(x)+int(1),y);
+		if ( x < this.sizeX-1 ) {
+			if ( cellTest.checkPlayer()  ) { playerNear = true;}
+		}
+		
+		
+		if (playerNear) { playboard.fightStarted=true; }
+
+		return playerNear;
 	}
 
 	synchro(x,y){

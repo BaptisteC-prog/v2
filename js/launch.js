@@ -1,13 +1,15 @@
+"use strict";
+
 import {playboard} from "./Grid.js";
 import {player1,player2,endTurn} from "./Player.js";
 import {weapon0,weapon1,weapon2,weapon3,weapon4} from "./Weapon.js"; //les OBJETS de weapon
 import { sizeX,sizeY,shiftX,shiftY,scale,rint,rnd,max } from "./configUtils.js";
-import { fight,useV3 } from "./fight.js";
+//import Fight from "./Fight.js";
 
 $(document).ready(function () {
 	
 	let dmgchart=false;
-	
+	let useV3=false;
 
 	$( ".panel-joueur2" ).toggleClass("active-joueur2");
 
@@ -112,30 +114,31 @@ $(document).ready(function () {
 
  /////////////////////////////////////////////////////////////////////////////////
  // COMBAT
+ /*
  $('#overlay').on('click','.fight', function(){
 
 	player1.canPlay=true;
 	player2.canPlay=true;
 	playboard.fightStarted=true;
 	
-	let Me;
-	let Him;
+	let me;
+	let him;
 
 	if (player1.myTurn && player1.canPlay && player1.isAttacking ) {
-		Me=player1;
-		Him=player2;
+		me=player1;
+		him=player2;
 	}
 
 	if (player2.myTurn && player2.canPlay && player2.isAttacking ) {
-		Me=player2;
-		Him=player1;
+		me=player2;
+		him=player1;
 	}
 
-	if (Me.myTurn && Me.canPlay && Me.isAttacking ) {
+	if (me.myTurn && me.canPlay && me.isAttacking ) {
 
 		
 
-		fight(Me,Him);
+		fight(me,him);
 		refresh();
 		return;
 	}
@@ -148,7 +151,7 @@ $(document).ready(function () {
 		$("#liste").append("<li class='item'>"+player.name+" doit choisir de passer en attaque !</li>") ;
 	}
 
- });
+ });*/
 
  ///////////////////////////////////////////////////////////////////////////////
  ///INTERACT
@@ -156,7 +159,7 @@ $(document).ready(function () {
 	 if (player1.myTurn) {
 		player1.isAttacking=true;
 		//$("#liste").append("<li class='item'>"+player1.name+" passe a l'attaque</li>") ;
-		fight(player1,player2);
+		player1.fight(player1,player2);
 		$('#overlay').html("");
 		refresh();
 		return;
@@ -182,7 +185,7 @@ $('#attP2').on('click', function(){
 		player2.isAttacking=true;
 		//$("#liste").append("<li class='item'>"+player2.name+" passe a l'attaque</li>") ;
 		$('#overlay').html("");
-		fight(player2,player1);
+		player2.fight(player2,player1);
 		//endTurn(player2);
 		refresh();
 		return;
