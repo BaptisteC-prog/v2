@@ -1,5 +1,7 @@
 # Openclassrooms - Projet 6
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/b60a47df501f41d3bd873ba49cb836da)](https://www.codacy.com/gh/BaptisteC-prog/v2/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=BaptisteC-prog/v2&amp;utm_campaign=Badge_Grade)
+
 **Ce projet consistera à créer un jeu en ligne en JavaScript dans lequel 2 joueurs évoluent chacun leur tour pour s'affronter. Comme dans Highlander, il ne peut en rester qu'un !**
 
 ## Etape 1 : génération de la carte
